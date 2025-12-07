@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a7a21f763416cf4e80b7af079eba82c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentState: 0
   _agent: {fileID: 6380996506735183690}
   _checkpoints:
   - {fileID: 0}
