@@ -24,13 +24,17 @@ public class Player : MonoBehaviour
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
-        if(Physics.Raycast(ray,out hit))
+        if(Physics.Raycast(ray,out hit,Mathf.Infinity, 1<<7 | 1<<6))
         {
-            if(hit.transform.tag == "AI")
+            if (hit.transform.gameObject.layer == 7)
             {
                 Debug.Log("Enemy Hit");
                 _UIManager.AddScore();
                 hit.transform.gameObject.GetComponent<AI_Behaviour>().Death();
+            }
+            else if(hit.transform.gameObject.layer == 6)
+            {
+                hit.transform.gameObject.GetComponent<Barriers>().Damage();
             }
         }
     }
