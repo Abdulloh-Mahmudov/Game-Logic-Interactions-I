@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Transform _startPoint;
     [SerializeField] private GameObject _enemy;
     private GameObject[] _enemies;
+    [SerializeField] private GameObject _enemyContainer;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,8 @@ public class SpawnManager : MonoBehaviour
     {
         while (true)
         {
-            Instantiate(_enemy, _startPoint.position, Quaternion.identity);
+            GameObject enemy = Instantiate(_enemy, _startPoint.position, Quaternion.identity);
+            enemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(5f);
         }
     }
