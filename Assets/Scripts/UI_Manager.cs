@@ -10,14 +10,18 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] Text _enemyLostText;
     [SerializeField] Text _enemyDefeatedText;
     [SerializeField] Text _cursorTip;
+    [SerializeField] private GameObject _gameGoing;
+    [SerializeField] private GameObject _gameEnded;
+    [SerializeField] Text _result;
     private int _scoreNumber = 0;
     private int _enemyLeft = 0;
     private int _enemyDefeated = 0;
     private int _enemyLost = 0;
+    private int _enemyTotal = 0;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _gameEnded.SetActive(false);
     }
 
     // Update is called once per frame
@@ -25,8 +29,8 @@ public class UI_Manager : MonoBehaviour
     {
         _scoreText.text = _scoreNumber.ToString();
         _enemyText.text = _enemyLeft.ToString();
-        _enemyDefeatedText.text = _enemyDefeated.ToString() + "/" + 40;
-        _enemyLostText.text = _enemyLost.ToString() + "/" + 40;
+        _enemyDefeatedText.text = _enemyDefeated.ToString() + "/" + _enemyTotal.ToString();
+        _enemyLostText.text = _enemyLost.ToString() + "/" + _enemyTotal.ToString();
         if(Cursor.visible == true)
         {
             _cursorTip.gameObject.SetActive(true);
@@ -55,5 +59,24 @@ public class UI_Manager : MonoBehaviour
     public void EnemiesDefeated(int enemies)
     {
         _enemyDefeated = enemies;
+    }
+
+    public void EnemyTotal(int enemyTotal)
+    {
+        _enemyTotal = enemyTotal;
+    }
+
+    public void GameEnd( bool won)
+    {
+        if(won == true)
+        {
+            _result.text = "You Win!!!";
+        }
+        else
+        {
+            _result.text = "You Lose!!!";
+        }
+        _gameGoing.SetActive(false);
+        _gameEnded.SetActive(true);
     }
 }

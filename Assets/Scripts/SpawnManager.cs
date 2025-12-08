@@ -9,7 +9,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject _enemyContainer;
     [SerializeField] private float _spawnRate = 8f;
     [SerializeField] private UI_Manager _uiManager;
-    [SerializeField] private float _totalEnemyNumber = 40f;
+    [SerializeField] private int _totalEnemyNumber = 40;
+    [SerializeField] private GameManager _gameManager;
     private int _enemiesRemaining;
     private int _enemiesDefeated;
     private int _enemiesLost;
@@ -18,6 +19,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(SummoningRoutine());
+        _gameManager.EnemyRatio(_enemiesDefeated, _enemiesLost, _enemiesRemaining, _enemiesSpawned, _totalEnemyNumber);
     }
 
     // Update is called once per frame
@@ -27,17 +29,20 @@ public class SpawnManager : MonoBehaviour
         _uiManager.EnemiesLeft(_enemiesRemaining);
         _uiManager.EnemiesDefeated(_enemiesDefeated);
         _uiManager.EnemiesLost(_enemiesLost);
+        _uiManager.EnemyTotal(_totalEnemyNumber);
+        _gameManager.EnemyRatio(_enemiesDefeated, _enemiesLost, _enemiesRemaining,_enemiesSpawned ,_totalEnemyNumber);
     }
 
     IEnumerator SummoningRoutine()
     {
-        while (_enemiesSpawned <= _totalEnemyNumber)
+        while (_enemiesSpawned < _totalEnemyNumber)
         {
             GameObject enemy = Instantiate(_enemy, _startPoint.position, Quaternion.identity);
             _enemiesSpawned++;
             enemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(_spawnRate);
         }
+        
     }
     public void EnemyDefeated()
     {
@@ -47,4 +52,6 @@ public class SpawnManager : MonoBehaviour
     {
         _enemiesLost++;
     }
+
+    
 }
