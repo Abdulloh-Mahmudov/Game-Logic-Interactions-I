@@ -16,6 +16,7 @@ public class AI_Behaviour : MonoBehaviour
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private GameObject[] _checkpoints;
     [SerializeField] private int _currentCheckPoint = 0;
+    private AudioSource _audio;
     private bool _startedHiding = false;
     private bool _isDead = false;
     [SerializeField] private float _speed = 7f;
@@ -24,6 +25,7 @@ public class AI_Behaviour : MonoBehaviour
     void Start()
     {
         _checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
+        _audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -56,6 +58,10 @@ public class AI_Behaviour : MonoBehaviour
                     _isDead = true;
                     _animator.SetTrigger("Death");
                     gameObject.GetComponent<Collider>().enabled = false;
+                    if(_audio != null)
+                    {
+                        _audio.Play();
+                    }
                     Destroy(this.gameObject, 3f);
                 }
                 break;

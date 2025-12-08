@@ -6,6 +6,10 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private UI_Manager _UIManager;
     [SerializeField] private SpawnManager _spawnManager;
+    [SerializeField] private float _fireRate = 1f;
+    private float _cooldown;
+    [SerializeField] private AudioSource _audio;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +19,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Time.time > _cooldown)
         {
+            _cooldown = Time.time + _fireRate;
+            _audio.Play();
             Shoot();
         }
     }
@@ -37,6 +43,7 @@ public class Player : MonoBehaviour
             else if(hit.transform.gameObject.layer == 6)
             {
                 hit.transform.gameObject.GetComponent<Barriers>().Damage();
+                hit.transform.gameObject.GetComponent<Barriers>().WallShot();
             }
         }
     }

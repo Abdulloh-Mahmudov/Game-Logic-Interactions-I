@@ -9,6 +9,7 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] Text _enemyText;
     [SerializeField] Text _enemyLostText;
     [SerializeField] Text _enemyDefeatedText;
+    [SerializeField] Text _cursorTip;
     private int _scoreNumber = 0;
     private int _enemyLeft = 0;
     private int _enemyDefeated = 0;
@@ -26,6 +27,14 @@ public class UI_Manager : MonoBehaviour
         _enemyText.text = _enemyLeft.ToString();
         _enemyDefeatedText.text = _enemyDefeated.ToString() + "/" + 40;
         _enemyLostText.text = _enemyLost.ToString() + "/" + 40;
+        if(Cursor.visible == true)
+        {
+            _cursorTip.gameObject.SetActive(true);
+        }
+        else
+        {
+            _cursorTip.gameObject.SetActive(false);
+        }
     }
 
     public void AddScore()

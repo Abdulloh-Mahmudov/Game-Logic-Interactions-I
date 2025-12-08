@@ -6,10 +6,11 @@ public class Barriers : MonoBehaviour
 {
     private float _durability = 5;
     [SerializeField] private bool _isTrigger;
+    private AudioSource _audio;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -51,5 +52,10 @@ public class Barriers : MonoBehaviour
         gameObject.GetComponent<MeshRenderer>().enabled = true;
         transform.GetChild(0).GetComponent<Collider>().enabled = true;
         _durability = 5;
+    }
+
+    public void WallShot()
+    {
+        _audio.Play();
     }
 }

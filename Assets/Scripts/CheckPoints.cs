@@ -6,10 +6,11 @@ public class CheckPoints : MonoBehaviour
 {
     [SerializeField] private bool _isFinalPoint = false;
     [SerializeField] private SpawnManager _spawnManager;
+    private AudioSource _audio;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -28,6 +29,7 @@ public class CheckPoints : MonoBehaviour
             }
             else
             {
+                _audio.Play();
                 Destroy(other.gameObject);
                 _spawnManager.EnemyLost();
             }
