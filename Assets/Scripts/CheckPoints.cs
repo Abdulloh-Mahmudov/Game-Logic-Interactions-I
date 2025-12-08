@@ -5,6 +5,7 @@ using UnityEngine;
 public class CheckPoints : MonoBehaviour
 {
     [SerializeField] private bool _isFinalPoint = false;
+    [SerializeField] private SpawnManager _spawnManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class CheckPoints : MonoBehaviour
             else
             {
                 Destroy(other.gameObject);
+                _spawnManager.EnemyLost();
             }
         }
     }

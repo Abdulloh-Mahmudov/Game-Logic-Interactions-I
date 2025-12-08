@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private UI_Manager _UIManager;
+    [SerializeField] private SpawnManager _spawnManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Enemy Hit");
                 _UIManager.AddScore();
+                _spawnManager.EnemyDefeated();
                 hit.transform.gameObject.GetComponent<AI_Behaviour>().Death();
             }
             else if(hit.transform.gameObject.layer == 6)
