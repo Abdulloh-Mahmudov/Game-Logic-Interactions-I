@@ -13,12 +13,6 @@ public class Barriers : MonoBehaviour
         _audio = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "AI" && _isTrigger == true)
